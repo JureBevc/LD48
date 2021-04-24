@@ -109,6 +109,12 @@ public class Combat : MonoBehaviour
             // Win battle
             Debug.Log("BATTLE WON");
             combatActive = false;
+
+            foreach (Unit unit in playerUnits)
+            {
+                unit.RemoveActiveProjectiles();
+            }
+
             gameObject.SetActive(false);
             Map.instance.gameObject.SetActive(true);
             return;

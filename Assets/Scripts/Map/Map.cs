@@ -16,11 +16,10 @@ public class Map : MonoBehaviour
     public Node currentNode { get; set; }
     public GameObject currentNodeIndicator;
 
-    private void Awake()
+    public Map()
     {
         instance = this;
     }
-
     public void init()
     {
         List<Node> previous_nodes = new List<Node>();
@@ -71,6 +70,7 @@ public class Map : MonoBehaviour
         {
             MoveToNode(node);
         }
+        AudioPlayer.instance.PlayClick();
 
         switch (currentNode.nodeType)
         {
@@ -83,10 +83,14 @@ public class Map : MonoBehaviour
                 Combat.instance.StartCombat();
                 break;
             case NodeType.HARD_BATTLE:
-
+                gameObject.SetActive(false);
+                Combat.instance.gameObject.SetActive(true);
+                Combat.instance.StartCombat();
                 break;
             case NodeType.BOSS_BATTLE:
-
+                gameObject.SetActive(false);
+                Combat.instance.gameObject.SetActive(true);
+                Combat.instance.StartCombat();
                 break;
         }
     }

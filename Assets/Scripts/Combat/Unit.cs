@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
         for (int i = 0; i < projectilePoolSize; i++)
         {
             Projectile projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+            projectile.transform.parent = Combat.instance.transform;
             projectiles.Add(projectile);
         }
 
@@ -78,7 +79,21 @@ public class Unit : MonoBehaviour
             Combat.instance.GetEnemyUnits().Remove(this);
         else
             Combat.instance.GetPlayerUnits().Remove(this);
+
+        AudioPlayer.instance.PlayHit();
+        foreach (Projectile p in projectiles)
+        {
+            Destroy(p.gameObject);
+        }
         Destroy(this.gameObject);
+    }
+
+    public void RemoveActiveProjectiles()
+    {
+        foreach (Projectile p in projectiles)
+        {
+            p.ResetProjectile();
+        }
     }
 
     private void SetUnitSprite()

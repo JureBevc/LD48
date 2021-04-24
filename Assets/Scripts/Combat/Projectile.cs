@@ -45,8 +45,7 @@ public class Projectile : MonoBehaviour
             if (t >= 1)
             {
                 CheckForHit();
-                isUsed = false;
-                ShowSprite(false);
+                ResetProjectile();
             }
 
             previousPosition = transform.position;
@@ -95,6 +94,12 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnMouseDown()
+    {
+        isUsed = false;
+        ShowSprite(false);
+    }
+
+    public void ResetProjectile()
     {
         isUsed = false;
         ShowSprite(false);
