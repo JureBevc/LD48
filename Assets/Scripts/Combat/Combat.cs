@@ -6,10 +6,11 @@ public class Combat : MonoBehaviour
 {
     public static Combat instance;
 
-    public GameObject unitPrefab, playerSpawn, enemySpawn;
+    public GameObject unitPrefab;
+    public Transform playerSpawn, enemySpawn;
     public float unitHorizontalOffset = 1f;
 
-    private int numberOfPlayerUnits = 5, numberOfEnemyUnits = 5;
+    private int numberOfPlayerUnits = 5, numberOfEnemyUnits = 3;
 
     private List<Unit> playerUnits = new List<Unit>();
     private List<Unit> enemyUnits = new List<Unit>();
