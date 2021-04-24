@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3a0f21f09f975b40a79e124c543de72, type: 3}
-  m_Name: Level1
+  m_Script: {fileID: 11500000, guid: c2e490601657ee641b565a541637b9ba, type: 3}
+  m_Name: CampNodeData
   m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 11400000, guid: 63eb2cde0eb0e25488a522298f54f69a, type: 2}
-  - {fileID: 11400000, guid: 63eb2cde0eb0e25488a522298f54f69a, type: 2}
+  node_prefab: {fileID: 1256380820109526352, guid: 93df6d6ffe06523419bce6ae4b99eb81,
+    type: 3}

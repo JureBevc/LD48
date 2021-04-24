@@ -5,15 +5,15 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
 
-    [SerializeField] private Node node_prefab;
-
     private List<Node> nodes = new List<Node>();
 
     public void init(int level_number, LevelData level_data, List<Node> previous_level_nodes)
     {
         for (int i = 0; i < level_data.nodes.Length; i++)
         {
-            Node node = Instantiate<Node>(node_prefab, this.transform, true);
+            NodeData node_data = level_data.nodes[i];
+
+            Node node = Instantiate<Node>(node_data.get_map_node_prefab(), this.transform, true);
             nodes.Add(node);
 
             int node_count = level_data.nodes.Length;
