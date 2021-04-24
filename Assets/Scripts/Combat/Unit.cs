@@ -9,7 +9,6 @@ public class Unit : MonoBehaviour
     public bool isEnemy { get; set; }
     public float attackTime;
     public float attackTimeVariation;
-
     private List<Projectile> projectiles = new List<Projectile>();
     private int nextProjectileIndex = 0;
 
@@ -25,6 +24,7 @@ public class Unit : MonoBehaviour
 
         nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
         timeToAttack = Random.Range(0, attackTime);
+        SetUnitSprite();
     }
 
     // Start is called before the first frame update
@@ -37,9 +37,6 @@ public class Unit : MonoBehaviour
     void Update()
     {
         if (!Combat.instance.combatActive)
-            return;
-
-        if (!isEnemy)
             return;
 
         timeToAttack += Time.deltaTime;
@@ -82,5 +79,10 @@ public class Unit : MonoBehaviour
         else
             Combat.instance.GetPlayerUnits().Remove(this);
         Destroy(this.gameObject);
+    }
+
+    private void SetUnitSprite()
+    {
+        // Set the correct unit animation
     }
 }

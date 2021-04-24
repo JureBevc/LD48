@@ -26,7 +26,7 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCombat();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,6 +37,7 @@ public class Combat : MonoBehaviour
 
     void StartCombat()
     {
+        gameObject.SetActive(true);
         for (int i = 0; i < numberOfPlayerUnits; i++)
         {
             CreatePlayerUnit();
@@ -109,4 +110,5 @@ public class Combat : MonoBehaviour
             return;
         }
     }
+
 }

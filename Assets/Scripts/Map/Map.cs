@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    public static Map instance;
     [SerializeField] private Level level_prefab;
 
     [SerializeField] private float scroll_speed = 20;
@@ -12,6 +13,13 @@ public class Map : MonoBehaviour
 
     private List<Level> levels = new List<Level>();
 
+    public Node currentNode { get; set; }
+    public GameObject currentNodeIndicator;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void init()
     {
@@ -19,13 +27,20 @@ public class Map : MonoBehaviour
         for (int i = 0; i < map_data.levels.Length; i++)
         {
             LevelData level_data = map_data.levels[i];
-            
+
             Level level = Instantiate(level_prefab, this.transform);
             levels.Add(level);
             level.init(i, level_data, previous_nodes);
 
             previous_nodes = level.get_nodes();
+            if (i == 0)
+            {
+                currentNode = level.get_nodes()[0];
+            }
         }
+
+        // Move to the initial node
+        MoveToNode(currentNode);
     }
 
     public void update(float delta_time)
@@ -49,5 +64,20 @@ public class Map : MonoBehaviour
         this.update(Time.deltaTime);
     }
 
+    public void NodeClick(Node node)
+    {
+        Debug.Log("Clicked on node " + node);
+        Level level = node.level;
+        if(node.HasNeighbor(currentNode)){
+            MoveToNode(node);
+        }
+    }
+
+    public void MoveToNode(Node node)
+    {
+        Debug.Log("Moving to next node");
+        currentNode = node;
+        currentNodeIndicator.transform.position = node.transform.position;
+    }
 
 }

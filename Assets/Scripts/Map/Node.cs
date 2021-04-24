@@ -7,9 +7,12 @@ public class Node : MonoBehaviour
     [SerializeField] public Connection connection_prefab;
 
     private Dictionary<Node, Connection> connections = new Dictionary<Node, Connection>();
+    public Level level {get; set;}
 
-    public void init(float position, List<Node> neigbors)
+    public void init(Level level, float position, List<Node> neigbors)
     {
+        this.level = level;
+
         foreach (Node child in neigbors)
         {
             if (child != null)
@@ -30,7 +33,7 @@ public class Node : MonoBehaviour
     }
     void OnMouseDown()
     {
-        Debug.Log("Sprite Clicked");
+        Map.instance.NodeClick(this);
     }
 
     private void SetConnectionPositions()
@@ -52,8 +55,8 @@ public class Node : MonoBehaviour
 
     }
 
-    public void onClick()
-    {
-        Debug.Log("Test");
+    public bool HasNeighbor(Node node){
+        Debug.Log(connections.Keys.Count);
+        return connections.ContainsKey(node);
     }
 }

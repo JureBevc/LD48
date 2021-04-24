@@ -17,9 +17,9 @@ public class Level : MonoBehaviour
             nodes.Add(node);
 
             int node_count = level_data.nodes.Length;
-            node.init(i - node_count / 2.0f + .5f, previous_level_nodes);
+            node.init(this, i - node_count / 2.0f + .5f, previous_level_nodes);
         }
-        this.transform.position = new Vector3(0, level_number * 1, 0);
+        this.transform.position = new Vector3(0, -level_number * 1, 0);
     }
 
     public void update(float delta_time)
