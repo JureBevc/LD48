@@ -11,7 +11,7 @@ public class Combat : MonoBehaviour
     public Transform playerSpawn, enemySpawn;
     public float unitHorizontalOffset = 1f;
 
-    private int numberOfPlayerUnits = 5, numberOfEnemyUnits = 3;
+    private int numberOfPlayerUnits = 5, numberOfEnemyUnits = 6;
 
     private List<Unit> playerUnits = new List<Unit>();
     private List<Unit> enemyUnits = new List<Unit>();

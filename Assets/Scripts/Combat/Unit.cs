@@ -38,6 +38,10 @@ public class Unit : MonoBehaviour
     {
         if (!Combat.instance.combatActive)
             return;
+
+        if (!isEnemy)
+            return;
+
         timeToAttack += Time.deltaTime;
         if (timeToAttack >= attackTime + attackTimeVariation)
         {

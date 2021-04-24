@@ -91,6 +91,12 @@ public class Projectile : MonoBehaviour
     private void UpdateSpriteAngle()
     {
         float angle = Vector3.SignedAngle(Vector3.up, previousPosition - transform.position, Vector3.forward);
-        transform.rotation = Quaternion.Euler(0, 0, 180+angle);
+        transform.rotation = Quaternion.Euler(0, 0, 180 + angle);
+    }
+
+    private void OnMouseDown()
+    {
+        isUsed = false;
+        ShowSprite(false);
     }
 }
