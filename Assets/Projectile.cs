@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float lifeTime;
 
+    public float yOffset;
     public float minHeight, maxHeight;
     private float height;
     public AnimationCurve curve;
@@ -13,7 +14,10 @@ public class Projectile : MonoBehaviour
     private bool isUsed { get; set; }
     private Vector3 origin, target;
     private float currentLifeTime;
+    private float hitChance;
+    private Unit fromUnit { get; set; }
 
+    private Vector3 previousPosition;
     void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -35,29 +39,58 @@ public class Projectile : MonoBehaviour
 
             float t = currentLifeTime / lifeTime;
             float px = Mathf.Lerp(origin.x, target.x, t);
-            float py = origin.y + curve.Evaluate(t) * height;
+            float py = origin.y + curve.Evaluate(t) * height + yOffset;
             transform.position = new Vector3(px, py, origin.z);
+            UpdateSpriteAngle();
             if (t >= 1)
             {
+                CheckForHit();
                 isUsed = false;
                 ShowSprite(false);
             }
+
+            previousPosition = transform.position;
         }
     }
 
-    public void Throw(Vector3 origin, Vector3 target)
+    public void Throw(Unit fromUnit, Vector3 origin, Vector3 target, float hitChance)
     {
+        this.fromUnit = fromUnit;
         this.origin = origin;
         this.target = target;
+        this.hitChance = hitChance;
+
         currentLifeTime = 0;
         isUsed = true;
-        transform.position = origin;
+        transform.position = origin + Vector3.up * yOffset;
         height = Random.Range(minHeight, maxHeight);
+        previousPosition = transform.position;
         ShowSprite(true);
+    }
+
+    private void CheckForHit()
+    {
+        if (Random.Range(0f, 1f) < hitChance)
+        {
+            if (fromUnit.isEnemy)
+            {
+                Combat.instance.DamagePlayer();
+            }
+            else
+            {
+                Combat.instance.DamageEnemy();
+            }
+        }
     }
 
     private void ShowSprite(bool value)
     {
         spriteRenderer.enabled = value;
+    }
+
+    private void UpdateSpriteAngle()
+    {
+        float angle = Vector3.SignedAngle(Vector3.up, previousPosition - transform.position, Vector3.forward);
+        transform.rotation = Quaternion.Euler(0, 0, 180+angle);
     }
 }

@@ -8,11 +8,13 @@ public class Unit : MonoBehaviour
     public int projectilePoolSize;
     public bool isEnemy { get; set; }
     public float attackTime;
+    public float attackTimeVariation;
 
     private List<Projectile> projectiles = new List<Projectile>();
     private int nextProjectileIndex = 0;
 
     private float timeToAttack = 0;
+    private float nextAttackTimeVariation;
     void Awake()
     {
         for (int i = 0; i < projectilePoolSize; i++)
@@ -20,6 +22,9 @@ public class Unit : MonoBehaviour
             Projectile projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
             projectiles.Add(projectile);
         }
+
+        nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
+        timeToAttack = Random.Range(0, attackTime);
     }
 
     // Start is called before the first frame update
@@ -31,8 +36,10 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Combat.instance.combatActive)
+            return;
         timeToAttack += Time.deltaTime;
-        if (timeToAttack >= attackTime)
+        if (timeToAttack >= attackTime + attackTimeVariation)
         {
             timeToAttack = 0;
             Attack();
@@ -41,26 +48,35 @@ public class Unit : MonoBehaviour
 
     public void Attack()
     {
-        if (isEnemy)
-            return;
-
-        projectiles[nextProjectileIndex].Throw(transform.position, AttackTarget());
+        projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), 0.1f);
         nextProjectileIndex += 1;
         if (nextProjectileIndex >= projectilePoolSize)
         {
             nextProjectileIndex = 0;
         }
+        nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
     }
 
     public Vector3 AttackTarget()
     {
         if (isEnemy)
         {
-            return Combat.instance.playerSpawn.position;
+            List<Unit> units = Combat.instance.GetPlayerUnits();
+            return units[Random.Range(0, units.Count)].transform.position;
         }
         else
         {
-            return Combat.instance.enemySpawn.position;
+            List<Unit> units = Combat.instance.GetEnemyUnits();
+            return units[Random.Range(0, units.Count)].transform.position;
         }
+    }
+
+    public void Kill()
+    {
+        if (isEnemy)
+            Combat.instance.GetEnemyUnits().Remove(this);
+        else
+            Combat.instance.GetPlayerUnits().Remove(this);
+        Destroy(this.gameObject);
     }
 }
