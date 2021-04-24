@@ -29,6 +29,8 @@ public class Node : MonoBehaviour
         this.SetConnectionPositions();
     }
 
+    
+
     private void SetConnectionPositions()
     {
         foreach (KeyValuePair<Node, Connection> pair in connections)
