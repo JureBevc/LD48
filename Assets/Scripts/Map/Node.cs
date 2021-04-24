@@ -4,16 +4,13 @@ using System.Collections.Generic;
 
 public class Node : MonoBehaviour
 {
-    [SerializeField] private RectTransform rect_transform;
-    [SerializeField] public Camera ui_camera;
-    [SerializeField] public Node[] children;
     [SerializeField] public Connection connection_prefab;
 
     private Dictionary<Node, Connection> connections = new Dictionary<Node, Connection>();
 
-    void Start()
+    public void init(float position, List<Node> neigbors)
     {
-        foreach (Node child in children)
+        foreach (Node child in neigbors)
         {
             if (child != null)
             {
@@ -21,15 +18,16 @@ public class Node : MonoBehaviour
                 connections.Add(child, connection);
             }
         }
+
+        this.transform.position = new Vector3(position * 1, 0, 0);
+
         this.SetConnectionPositions();
     }
 
-    void Update()
+    public void update(float delta_time)
     {
         this.SetConnectionPositions();
     }
-
-    
 
     private void SetConnectionPositions()
     {
@@ -45,7 +43,7 @@ public class Node : MonoBehaviour
 
             float size = targetDir.magnitude;
 
-            ((RectTransform)connection.transform).sizeDelta = new Vector3(size, 10, 1);
+            connection.transform.localScale = new Vector3(size, 1, 1);
         }
 
     }
