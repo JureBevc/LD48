@@ -28,6 +28,10 @@ public class Node : MonoBehaviour
     {
         this.SetConnectionPositions();
     }
+    void OnMouseDown()
+    {
+        Debug.Log("Sprite Clicked");
+    }
 
     private void SetConnectionPositions()
     {
