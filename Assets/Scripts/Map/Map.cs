@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    [SerializeField] private int[] nodes_per_level;
-
     [SerializeField] private Level level_prefab;
 
     [SerializeField] private float scroll_speed = 20;
+
+    [SerializeField] private MapData map_data;
 
     private List<Level> levels = new List<Level>();
 
@@ -16,13 +16,13 @@ public class Map : MonoBehaviour
     public void init()
     {
         List<Node> previous_nodes = new List<Node>();
-        for (int i = 0; i < nodes_per_level.Length; i++)
+        for (int i = 0; i < map_data.levels.Length; i++)
         {
-            int node_count = nodes_per_level[i];
-
+            LevelData level_data = map_data.levels[i];
+            
             Level level = Instantiate(level_prefab, this.transform);
             levels.Add(level);
-            level.init(i, node_count, previous_nodes);
+            level.init(i, level_data, previous_nodes);
 
             previous_nodes = level.get_nodes();
         }

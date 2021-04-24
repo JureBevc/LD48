@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35fade01a9f57940a7ff59d0f2e45f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodes_per_level: 0100000003000000030000000400000002000000
   level_prefab: {fileID: 1050056872412234645, guid: 552f19dee23dc40458ed85a8902a17ac,
     type: 3}
   scroll_speed: 40
+  map_data: {fileID: 11400000, guid: 52f808d0a61614748bb9e758ac32829c, type: 2}
