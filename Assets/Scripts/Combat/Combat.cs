@@ -11,14 +11,14 @@ public class Combat : MonoBehaviour
     public Transform playerSpawn, enemySpawn;
     public float unitHorizontalOffset = 1f;
 
-    private int numberOfPlayerUnits = 5, numberOfEnemyUnits = 6;
+    private int numberOfPlayerUnits = 12, numberOfEnemyUnits = 3;
 
     private List<Unit> playerUnits = new List<Unit>();
     private List<Unit> enemyUnits = new List<Unit>();
 
     public bool combatActive { get; set; }
 
-    void Awake()
+    public Combat()
     {
         instance = this;
     }
@@ -26,7 +26,7 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -35,12 +35,14 @@ public class Combat : MonoBehaviour
 
     }
 
-    void StartCombat()
+    public void StartCombat()
     {
-        gameObject.SetActive(true);
-        for (int i = 0; i < numberOfPlayerUnits; i++)
+        if (playerUnits.Count == 0)
         {
-            CreatePlayerUnit();
+            for (int i = 0; i < numberOfPlayerUnits; i++)
+            {
+                CreatePlayerUnit();
+            }
         }
         for (int i = 0; i < numberOfEnemyUnits; i++)
         {
@@ -107,6 +109,8 @@ public class Combat : MonoBehaviour
             // Win battle
             Debug.Log("BATTLE WON");
             combatActive = false;
+            gameObject.SetActive(false);
+            Map.instance.gameObject.SetActive(true);
             return;
         }
     }

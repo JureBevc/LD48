@@ -66,10 +66,28 @@ public class Map : MonoBehaviour
 
     public void NodeClick(Node node)
     {
-        Debug.Log("Clicked on node " + node);
         Level level = node.level;
-        if(node.HasNeighbor(currentNode)){
+        if (node.HasNeighbor(currentNode))
+        {
             MoveToNode(node);
+        }
+
+        switch (currentNode.nodeType)
+        {
+            case NodeType.CAMP:
+
+                break;
+            case NodeType.NORMAL_BATTLE:
+                gameObject.SetActive(false);
+                Combat.instance.gameObject.SetActive(true);
+                Combat.instance.StartCombat();
+                break;
+            case NodeType.HARD_BATTLE:
+
+                break;
+            case NodeType.BOSS_BATTLE:
+
+                break;
         }
     }
 

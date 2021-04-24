@@ -108,5 +108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NodeCamp
       objectReference: {fileID: 0}
+    - target: {fileID: 6844455818936895960, guid: 0fd5928215edb2e47a165bf5c408acec,
+        type: 3}
+      propertyPath: nodeType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fd5928215edb2e47a165bf5c408acec, type: 3}

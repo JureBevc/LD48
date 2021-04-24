@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Node : MonoBehaviour
 {
     [SerializeField] public Connection connection_prefab;
+    public NodeType nodeType;
 
     private Dictionary<Node, Connection> connections = new Dictionary<Node, Connection>();
     public Level level {get; set;}
@@ -56,7 +57,6 @@ public class Node : MonoBehaviour
     }
 
     public bool HasNeighbor(Node node){
-        Debug.Log(connections.Keys.Count);
         return connections.ContainsKey(node);
     }
 }

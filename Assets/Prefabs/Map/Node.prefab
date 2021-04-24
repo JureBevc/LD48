@@ -56,6 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connection_prefab: {fileID: 4665222884425036022, guid: 907552461a155114287062a25b71bd9d,
     type: 3}
+  nodeType: 1
 --- !u!212 &2212331660952644145
 SpriteRenderer:
   m_ObjectHideFlags: 0
