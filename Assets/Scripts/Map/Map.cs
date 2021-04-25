@@ -15,6 +15,7 @@ public class Map : MonoBehaviour
 
     public Node currentNode { get; set; }
     public GameObject currentNodeIndicator, background;
+    public float maxScroll, minScroll;
 
     public Map()
     {
@@ -50,8 +51,14 @@ public class Map : MonoBehaviour
         }
 
         Vector3 position = this.transform.position;
-        position.y -= Input.mouseScrollDelta.y * delta_time * scroll_speed;
-        background.transform.position -= new Vector3(0, Input.mouseScrollDelta.y * delta_time * scroll_speed, 0);
+
+        float scroll = -Input.mouseScrollDelta.y * delta_time * scroll_speed;
+        if (position.y > maxScroll && scroll > 0)
+            return;
+        if (position.y < minScroll && scroll < 0)
+            return;
+        position.y += scroll;
+        background.transform.position += new Vector3(0, scroll, 0);
         this.transform.position = position;
     }
 

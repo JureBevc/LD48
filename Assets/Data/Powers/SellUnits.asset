@@ -17,3 +17,4 @@ MonoBehaviour:
   powerDescription: Trade some of your units for gold.
   moneyCost: 3
   unitCost: 1
+  oneUse: 0
