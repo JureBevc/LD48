@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -44,7 +45,6 @@ public class Combat : MonoBehaviour
     public Combat()
     {
         instance = this;
-
         collectedCoins = 100;
     }
 
@@ -186,10 +186,16 @@ public class Combat : MonoBehaviour
                 unit.RemoveActiveProjectiles();
             }
 
-            gameObject.SetActive(false);
-            Map.instance.gameObject.SetActive(true);
+            System.Action action = new System.Action(TransitionCallback);
+            SceneTransition.instance.StartTransition(action);
             return;
         }
+    }
+
+    private void TransitionCallback()
+    {
+        gameObject.SetActive(false);
+        Map.instance.gameObject.SetActive(true);
     }
 
     public void UpdateUnitText()

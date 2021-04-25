@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,23 +85,39 @@ public class Map : MonoBehaviour
         switch (currentNode.nodeType)
         {
             case NodeType.CAMP:
-                gameObject.SetActive(false);
-                Camp.instance.ShowCamp();
+                System.Action campAction = new System.Action(() =>
+                {
+                    gameObject.SetActive(false);
+                    Camp.instance.ShowCamp();
+                });
+                SceneTransition.instance.StartTransition(campAction);
                 break;
             case NodeType.NORMAL_BATTLE:
-                gameObject.SetActive(false);
-                Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat(Combat.instance.normalEnemiesBase + node.level.levelNumber * Combat.instance.normalEnemiesPerLevel);
+                System.Action normalAction = new System.Action(() =>
+                {
+                    gameObject.SetActive(false);
+                    Combat.instance.gameObject.SetActive(true);
+                    Combat.instance.StartCombat(Combat.instance.normalEnemiesBase + node.level.levelNumber * Combat.instance.normalEnemiesPerLevel);
+                });
+                SceneTransition.instance.StartTransition(normalAction);
                 break;
             case NodeType.HARD_BATTLE:
-                gameObject.SetActive(false);
-                Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat(Combat.instance.hardEnemiesBase + node.level.levelNumber * Combat.instance.hardEnemiesPerLevel);
+                System.Action hardAction = new System.Action(() =>
+                {
+                    gameObject.SetActive(false);
+                    Combat.instance.gameObject.SetActive(true);
+                    Combat.instance.StartCombat(Combat.instance.hardEnemiesBase + node.level.levelNumber * Combat.instance.hardEnemiesPerLevel);
+                });
+                SceneTransition.instance.StartTransition(hardAction);
                 break;
             case NodeType.BOSS_BATTLE:
-                gameObject.SetActive(false);
-                Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat(1);
+                System.Action bossAction = new System.Action(() =>
+                {
+                    gameObject.SetActive(false);
+                    Combat.instance.gameObject.SetActive(true);
+                    Combat.instance.StartCombat(1);
+                });
+                SceneTransition.instance.StartTransition(bossAction);
                 break;
         }
     }
@@ -111,5 +128,4 @@ public class Map : MonoBehaviour
         currentNode = node;
         currentNodeIndicator.transform.position = node.transform.position;
     }
-
 }

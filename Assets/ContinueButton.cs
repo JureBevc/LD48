@@ -8,7 +8,12 @@ public class ContinueButton : MonoBehaviour
     public void ExitCamp()
     {
         AudioPlayer.instance.PlayClick();
-        Camp.instance.HideCamp();
-        Map.instance.gameObject.SetActive(true);
+        System.Action campAction = new System.Action(() =>
+        {
+            Camp.instance.HideCamp();
+            Map.instance.gameObject.SetActive(true);
+        });
+        SceneTransition.instance.StartTransition(campAction);
+
     }
 }

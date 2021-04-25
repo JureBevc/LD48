@@ -30,8 +30,12 @@ public class RandomPowerButton : MonoBehaviour
         title.text = powerData.powerTitle;
         description.text = powerData.powerDescription;
         cost.text = "" + (powerData.unitCost > 0 ? powerData.unitCost : powerData.moneyCost);
+        costImage.GetComponent<Animator>().enabled = true;
         if (powerData.unitCost > 0)
+        {
+            costImage.GetComponent<Animator>().enabled = false;
             costImage.sprite = unitCostSprite;
+        }
     }
 
     public void Click()

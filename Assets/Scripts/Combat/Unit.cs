@@ -107,6 +107,8 @@ public class Unit : MonoBehaviour
 
     public void Attack()
     {
+        if (!Combat.instance.combatActive)
+            return;
         AudioPlayer.instance.PlayAttack();
 
         if (Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE && isEnemy)
