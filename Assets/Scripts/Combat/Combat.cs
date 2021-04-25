@@ -28,7 +28,7 @@ public class Combat : MonoBehaviour
     [Header("Combat balance")]
     public int normalEnemiesBase, normalEnemiesPerLevel;
     public int hardEnemiesBase, hardEnemiesPerLevel;
-    public float baseAccuracyPlayer, baseAccuracyEnemy;
+    public float baseAccuracyPlayer, baseAccuracyEnemy, bossAccuracy;
 
     // Power ups
     [Header("Powerups")]
@@ -131,9 +131,18 @@ public class Combat : MonoBehaviour
 
     public void DamageEnemy()
     {
+
         if (enemyUnits.Count <= 0)
             return;
-        enemyUnits[Random.Range(0, enemyUnits.Count)].Kill();
+
+        if (Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE)
+        {
+            enemyUnits[Random.Range(0, enemyUnits.Count)].DamageBoss();
+        }
+        else
+        {
+            enemyUnits[Random.Range(0, enemyUnits.Count)].Kill();
+        }
         collectedCoins += 1;
         UpdateMoneyText();
         CheckForCombatOver();

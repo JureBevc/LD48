@@ -100,7 +100,7 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (fromEnemyUnit && Combat.instance.divineJudgement)
+        if (fromEnemyUnit && (Combat.instance.divineJudgement || Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE))
         {
             AudioPlayer.instance.PlayClick2();
             ResetProjectile();

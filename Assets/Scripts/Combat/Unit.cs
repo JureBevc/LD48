@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Unit : MonoBehaviour
     public int projectilePoolSize;
     public bool isEnemy { get; set; }
     public float attackTime, enemyAttackTime, bossAttackTime;
+    public int bossMaxHealth;
+    private int bossHealth;
     public float attackTimeVariation;
     private List<Projectile> projectiles = new List<Projectile>();
     private int nextProjectileIndex = 0;
@@ -49,6 +52,7 @@ public class Unit : MonoBehaviour
             chosenProjectile = playerProjectile;
             animator = Instantiate(chosenAnimation, transform).GetComponentInChildren<Animator>();
         }
+
         for (int i = 0; i < projectilePoolSize; i++)
         {
             Projectile projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
@@ -59,12 +63,13 @@ public class Unit : MonoBehaviour
 
         nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
         timeToAttack = Random.Range(0, attackTime);
-        SetUnitSprite();
     }
 
     public void InitBoss()
     {
         this.isEnemy = true;
+        projectilePoolSize = 20;
+        bossHealth = bossMaxHealth;
         chosenAnimation = bossAnimation;
         chosenProjectile = bossProjectile;
         animator = Instantiate(chosenAnimation, transform).GetComponentInChildren<Animator>();
@@ -78,7 +83,6 @@ public class Unit : MonoBehaviour
         nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
         timeToAttack = 0;
         attackTime = bossAttackTime;
-        SetUnitSprite();
     }
 
     // Start is called before the first frame update
@@ -104,21 +108,38 @@ public class Unit : MonoBehaviour
     public void Attack()
     {
         AudioPlayer.instance.PlayAttack();
-        float accuracy = 0;
-        if (isEnemy)
+
+        if (Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE && isEnemy)
         {
-            accuracy = Combat.instance.baseAccuracyEnemy - Combat.instance.evasionPerStage * Combat.instance.evasionStage;
+            for (int i = 0; i < 5; i++)
+            {
+                projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), Combat.instance.bossAccuracy);
+                nextProjectileIndex += 1;
+                if (nextProjectileIndex >= projectilePoolSize)
+                {
+                    nextProjectileIndex = 0;
+                }
+            }
         }
         else
         {
-            accuracy = Combat.instance.baseAccuracyPlayer + Combat.instance.accuracyPerStage * Combat.instance.accuracyStage;
+            float accuracy = 0;
+            if (isEnemy)
+            {
+                accuracy = Combat.instance.baseAccuracyEnemy - Combat.instance.evasionPerStage * Combat.instance.evasionStage;
+            }
+            else
+            {
+                accuracy = Combat.instance.baseAccuracyPlayer + Combat.instance.accuracyPerStage * Combat.instance.accuracyStage;
+            }
+            projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), accuracy);
+            nextProjectileIndex += 1;
+            if (nextProjectileIndex >= projectilePoolSize)
+            {
+                nextProjectileIndex = 0;
+            }
         }
-        projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), accuracy);
-        nextProjectileIndex += 1;
-        if (nextProjectileIndex >= projectilePoolSize)
-        {
-            nextProjectileIndex = 0;
-        }
+
         nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
     }
 
@@ -135,6 +156,14 @@ public class Unit : MonoBehaviour
             List<Unit> units = Combat.instance.GetEnemyUnits();
             return units[Random.Range(0, units.Count)].transform.position;
         }
+    }
+
+    public void DamageBoss()
+    {
+        bossHealth -= 1;
+        GetComponentInChildren<SpriteRenderer>().transform.Find("Canvas/HPFill").GetComponent<Image>().fillAmount = bossHealth * 1.0f / bossMaxHealth;
+        if (bossHealth <= 0)
+            Kill();
     }
 
     public void Kill()
@@ -158,10 +187,5 @@ public class Unit : MonoBehaviour
         {
             p.ResetProjectile();
         }
-    }
-
-    private void SetUnitSprite()
-    {
-        // Set the correct unit animation
     }
 }

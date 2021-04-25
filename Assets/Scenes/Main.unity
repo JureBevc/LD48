@@ -3477,6 +3477,7 @@ MonoBehaviour:
   hardEnemiesPerLevel: 3
   baseAccuracyPlayer: 0.1
   baseAccuracyEnemy: 0.2
+  bossAccuracy: 0.5
   accuracyPerStage: 0.1
   evasionPerStage: 0.05
   attackSpeedPerStage: 1

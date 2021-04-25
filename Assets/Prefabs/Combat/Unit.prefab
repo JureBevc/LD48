@@ -49,6 +49,7 @@ MonoBehaviour:
   attackTime: 2
   enemyAttackTime: 2
   bossAttackTime: 1
+  bossMaxHealth: 20
   attackTimeVariation: 0.5
   playerAnimation: {fileID: 7248638961022347395, guid: dbba87ba771b69a4aae0bdd732756ad9,
     type: 3}
