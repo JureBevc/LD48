@@ -11,6 +11,7 @@ public class Combat : MonoBehaviour
     public GameObject unitParent;
     public GameObject unitPrefab;
     public Transform playerSpawn, enemySpawn;
+    public GameObject gameOver, gameWon;
     public float unitHorizontalOffset = 1f;
 
     public int startingPlayerUnits;
@@ -172,6 +173,11 @@ public class Combat : MonoBehaviour
             // Game over
             Debug.Log("GAME OVER");
             combatActive = false;
+            SceneTransition.instance.StartTransition(new System.Action(() =>
+            {
+                gameObject.SetActive(false);
+                gameOver.SetActive(true);
+            }));
             return;
         }
 
@@ -184,6 +190,16 @@ public class Combat : MonoBehaviour
             foreach (Unit unit in playerUnits)
             {
                 unit.RemoveActiveProjectiles();
+            }
+
+            if (Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE)
+            {
+                SceneTransition.instance.StartTransition(new System.Action(() =>
+                {
+                    gameObject.SetActive(false);
+                    gameWon.SetActive(true);
+                }));
+                return;
             }
 
             System.Action action = new System.Action(TransitionCallback);
