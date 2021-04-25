@@ -3481,6 +3481,7 @@ MonoBehaviour:
   evasionPerStage: 0.05
   attackSpeedPerStage: 1
   holyInterventionEnemyRatio: 0.5
+  divineBlessingAccuracyBonus: 0.5
 --- !u!1 &1423976253
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,8 +15,8 @@ public class Projectile : MonoBehaviour
     private Vector3 origin, target;
     private float currentLifeTime;
     private float hitChance;
-    private Unit fromUnit { get; set; }
-
+    private bool fromEnemyUnit { get; set; }
+    private bool buffed;
     private Vector3 previousPosition;
     void Awake()
     {
@@ -59,7 +59,7 @@ public class Projectile : MonoBehaviour
 
     public void Throw(Unit fromUnit, Vector3 origin, Vector3 target, float hitChance)
     {
-        this.fromUnit = fromUnit;
+        this.fromEnemyUnit = fromUnit.isEnemy;
         this.origin = origin;
         this.target = target;
         this.hitChance = hitChance;
@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
     {
         if (Random.Range(0f, 1f) < hitChance)
         {
-            if (fromUnit.isEnemy)
+            if (fromEnemyUnit)
             {
                 Combat.instance.DamagePlayer();
             }
@@ -89,7 +89,6 @@ public class Projectile : MonoBehaviour
 
     private void ShowSprite(bool value)
     {
-        spriteRenderer.color = new Color(255, 255, 255);
         spriteRenderer.enabled = value;
     }
 
@@ -101,22 +100,25 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (fromUnit.isEnemy && Combat.instance.divineJudgement)
+        if (fromEnemyUnit && Combat.instance.divineJudgement)
         {
             AudioPlayer.instance.PlayClick2();
-            isUsed = false;
-            ShowSprite(false);
+            ResetProjectile();
         }
-        if (!fromUnit.isEnemy && Combat.instance.divineBlessing)
+        if (!fromEnemyUnit && Combat.instance.divineBlessing && !buffed)
         {
+            buffed = true;
             AudioPlayer.instance.PlayClick2();
             spriteRenderer.color = new Color(255, 120, 0);
+            hitChance += Combat.instance.divineBlessingAccuracyBonus;
         }
     }
 
     public void ResetProjectile()
     {
+        spriteRenderer.color = new Color(255, 255, 255);
         isUsed = false;
         ShowSprite(false);
+        buffed = false;
     }
 }

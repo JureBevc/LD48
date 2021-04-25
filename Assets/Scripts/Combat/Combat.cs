@@ -32,7 +32,7 @@ public class Combat : MonoBehaviour
 
     // Power ups
     [Header("Powerups")]
-    public float accuracyPerStage, evasionPerStage, attackSpeedPerStage, holyInterventionEnemyRatio;
+    public float accuracyPerStage, evasionPerStage, attackSpeedPerStage, holyInterventionEnemyRatio, divineBlessingAccuracyBonus;
     public int accuracyStage { get; set; }
     public int evasionStage { get; set; }
     public int attackSpeedStage { get; set; }
@@ -50,8 +50,6 @@ public class Combat : MonoBehaviour
 
     private void Awake()
     {
-        divineBlessing = true;
-        divineJudgement = true;
         numberOfPlayerUnits = startingPlayerUnits;
         for (int i = 0; i < numberOfPlayerUnits; i++)
         {

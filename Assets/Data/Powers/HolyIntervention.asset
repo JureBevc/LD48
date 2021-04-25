@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 8
   powerTitle: Holy Intervention
-  powerDescription: Your next battle will be easier than it would otherwise be.
+  powerDescription: Your next battle will be easier.
   moneyCost: 3
   unitCost: 0
   oneUse: 1
