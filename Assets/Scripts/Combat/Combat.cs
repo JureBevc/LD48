@@ -75,7 +75,7 @@ public class Combat : MonoBehaviour
     {
         int countDirection = ((playerUnits.Count + 1) / 2) * (playerUnits.Count % 2 == 0 ? 1 : -1);
         Unit unit = Instantiate(unitPrefab, playerSpawn.transform.position + Vector3.up * Random.Range(-0.4f, 0.4f) + Vector3.right * unitHorizontalOffset * countDirection, Quaternion.identity).GetComponent<Unit>();
-        unit.isEnemy = false;
+        unit.Init(false);
         unit.transform.parent = unitParent.transform;
         playerUnits.Add(unit);
         UpdateUnitText();
@@ -85,7 +85,7 @@ public class Combat : MonoBehaviour
     {
         int countDirection = ((enemyUnits.Count + 1) / 2) * (enemyUnits.Count % 2 == 0 ? 1 : -1);
         Unit unit = Instantiate(unitPrefab, enemySpawn.transform.position + Vector3.up * Random.Range(-0.4f, 0.4f) + Vector3.right * unitHorizontalOffset * countDirection, Quaternion.identity).GetComponent<Unit>();
-        unit.isEnemy = true;
+        unit.Init(true);
         unit.transform.parent = unitParent.transform;
         enemyUnits.Add(unit);
     }

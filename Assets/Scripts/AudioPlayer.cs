@@ -6,7 +6,7 @@ public class AudioPlayer : MonoBehaviour
 {
     public static AudioPlayer instance;
 
-    public AudioClip mainTheme, click, hit;
+    public AudioClip mainTheme, click, hit, attack;
 
     private AudioSource[] src;
 
@@ -38,6 +38,12 @@ public class AudioPlayer : MonoBehaviour
     {
         src[1].pitch = Random.Range(0.8f, 1.2f);
         src[1].PlayOneShot(hit);
+    }
+
+    public void PlayAttack()
+    {
+        src[2].pitch = Random.Range(0.8f, 1.2f);
+        src[2].PlayOneShot(attack);
     }
 
 }

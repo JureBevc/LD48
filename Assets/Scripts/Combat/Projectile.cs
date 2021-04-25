@@ -20,14 +20,18 @@ public class Projectile : MonoBehaviour
     private Vector3 previousPosition;
     void Awake()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        ShowSprite(false);
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    public void Init(GameObject projectilePrefab){
+        spriteRenderer = Instantiate(projectilePrefab, transform).GetComponentInChildren<SpriteRenderer>();
+        ShowSprite(false);
     }
 
     // Update is called once per frame

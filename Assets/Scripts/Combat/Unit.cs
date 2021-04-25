@@ -14,11 +14,43 @@ public class Unit : MonoBehaviour
 
     private float timeToAttack = 0;
     private float nextAttackTimeVariation;
+
+    private Animator animator;
+    public GameObject playerAnimation, demon1Animation, demon2Animation;
+    public GameObject playerProjectile, demon1Projectile, demon2Projectile;
+    private GameObject chosenAnimation, chosenProjectile;
     void Awake()
     {
+
+    }
+
+    public void Init(bool isEnemy)
+    {
+        this.isEnemy = isEnemy;
+        if (isEnemy)
+        {
+            if (Random.Range(0f, 1f) > 0.5f)
+            {
+                chosenAnimation = demon1Animation;
+                chosenProjectile = demon1Projectile;
+            }
+            else
+            {
+                chosenAnimation = demon2Animation;
+                chosenProjectile = demon2Projectile;
+            }
+            animator = Instantiate(chosenAnimation, transform).GetComponentInChildren<Animator>();
+        }
+        else
+        {
+            chosenAnimation = playerAnimation;
+            chosenProjectile = playerProjectile;
+            animator = Instantiate(chosenAnimation, transform).GetComponentInChildren<Animator>();
+        }
         for (int i = 0; i < projectilePoolSize; i++)
         {
             Projectile projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+            projectile.Init(chosenProjectile);
             projectile.transform.parent = Combat.instance.transform;
             projectiles.Add(projectile);
         }
@@ -44,12 +76,13 @@ public class Unit : MonoBehaviour
         if (timeToAttack >= attackTime + attackTimeVariation)
         {
             timeToAttack = 0;
-            Attack();
+            animator.SetTrigger("Attack");
         }
     }
 
     public void Attack()
     {
+        AudioPlayer.instance.PlayAttack();
         projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), 0.1f);
         nextProjectileIndex += 1;
         if (nextProjectileIndex >= projectilePoolSize)
@@ -58,6 +91,7 @@ public class Unit : MonoBehaviour
         }
         nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
     }
+
 
     public Vector3 AttackTarget()
     {

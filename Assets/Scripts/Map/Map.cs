@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     private List<Level> levels = new List<Level>();
 
     public Node currentNode { get; set; }
-    public GameObject currentNodeIndicator;
+    public GameObject currentNodeIndicator, background;
 
     public Map()
     {
@@ -51,6 +51,7 @@ public class Map : MonoBehaviour
 
         Vector3 position = this.transform.position;
         position.y -= Input.mouseScrollDelta.y * delta_time * scroll_speed;
+        background.transform.position -= new Vector3(0, Input.mouseScrollDelta.y * delta_time * scroll_speed, 0);
         this.transform.position = position;
     }
 

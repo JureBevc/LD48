@@ -36,16 +36,32 @@ public class Node : MonoBehaviour
     {
         transform.localScale = Vector3.one;
         Map.instance.NodeClick(this);
+        foreach (KeyValuePair<Node, Connection> pair in connections)
+        {
+            pair.Value.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 255, 255);
+        }
     }
 
     private void OnMouseEnter()
     {
         transform.localScale = Vector3.one * 1.5f;
+
+        foreach (KeyValuePair<Node, Connection> pair in connections)
+        {
+            if (pair.Key == Map.instance.currentNode)
+                pair.Value.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 156, 0);
+            else
+                pair.Value.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 0);
+        }
     }
 
     private void OnMouseExit()
     {
         transform.localScale = Vector3.one;
+        foreach (KeyValuePair<Node, Connection> pair in connections)
+        {
+            pair.Value.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 255, 255);
+        }
     }
 
     private void SetConnectionPositions()
