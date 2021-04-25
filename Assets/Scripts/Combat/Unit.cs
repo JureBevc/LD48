@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     public GameObject projectilePrefab;
     public int projectilePoolSize;
     public bool isEnemy { get; set; }
-    public float attackTime;
+    public float attackTime, enemyAttackTime, bossAttackTime;
     public float attackTimeVariation;
     private List<Projectile> projectiles = new List<Projectile>();
     private int nextProjectileIndex = 0;
@@ -16,9 +16,10 @@ public class Unit : MonoBehaviour
     private float nextAttackTimeVariation;
 
     private Animator animator;
-    public GameObject playerAnimation, demon1Animation, demon2Animation;
-    public GameObject playerProjectile, demon1Projectile, demon2Projectile;
+    public GameObject playerAnimation, demon1Animation, demon2Animation, bossAnimation;
+    public GameObject playerProjectile, demon1Projectile, demon2Projectile, bossProjectile;
     private GameObject chosenAnimation, chosenProjectile;
+
     void Awake()
     {
 
@@ -29,6 +30,7 @@ public class Unit : MonoBehaviour
         this.isEnemy = isEnemy;
         if (isEnemy)
         {
+            attackTime = enemyAttackTime;
             if (Random.Range(0f, 1f) > 0.5f)
             {
                 chosenAnimation = demon1Animation;
@@ -60,6 +62,25 @@ public class Unit : MonoBehaviour
         SetUnitSprite();
     }
 
+    public void InitBoss()
+    {
+        this.isEnemy = true;
+        chosenAnimation = bossAnimation;
+        chosenProjectile = bossProjectile;
+        animator = Instantiate(chosenAnimation, transform).GetComponentInChildren<Animator>();
+        for (int i = 0; i < projectilePoolSize; i++)
+        {
+            Projectile projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+            projectile.Init(chosenProjectile);
+            projectile.transform.parent = Combat.instance.transform;
+            projectiles.Add(projectile);
+        }
+        nextAttackTimeVariation = Random.Range(-1f, 1f) * attackTimeVariation;
+        timeToAttack = 0;
+        attackTime = bossAttackTime;
+        SetUnitSprite();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +94,7 @@ public class Unit : MonoBehaviour
             return;
 
         timeToAttack += Time.deltaTime;
-        if (timeToAttack >= attackTime + attackTimeVariation)
+        if (timeToAttack >= attackTime + attackTimeVariation - Combat.instance.attackSpeedStage * Combat.instance.attackSpeedPerStage)
         {
             timeToAttack = 0;
             animator.SetTrigger("Attack");
@@ -83,7 +104,16 @@ public class Unit : MonoBehaviour
     public void Attack()
     {
         AudioPlayer.instance.PlayAttack();
-        projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), 0.1f);
+        float accuracy = 0;
+        if (isEnemy)
+        {
+            accuracy = Combat.instance.baseAccuracyEnemy - Combat.instance.evasionPerStage * Combat.instance.evasionStage;
+        }
+        else
+        {
+            accuracy = Combat.instance.baseAccuracyPlayer + Combat.instance.accuracyPerStage * Combat.instance.accuracyStage;
+        }
+        projectiles[nextProjectileIndex].Throw(this, transform.position, AttackTarget(), accuracy);
         nextProjectileIndex += 1;
         if (nextProjectileIndex >= projectilePoolSize)
         {

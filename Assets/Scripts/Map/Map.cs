@@ -83,17 +83,17 @@ public class Map : MonoBehaviour
             case NodeType.NORMAL_BATTLE:
                 gameObject.SetActive(false);
                 Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat();
+                Combat.instance.StartCombat(Combat.instance.normalEnemiesBase + node.level.levelNumber * Combat.instance.normalEnemiesPerLevel);
                 break;
             case NodeType.HARD_BATTLE:
                 gameObject.SetActive(false);
                 Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat();
+                Combat.instance.StartCombat(Combat.instance.hardEnemiesBase + node.level.levelNumber * Combat.instance.hardEnemiesPerLevel);
                 break;
             case NodeType.BOSS_BATTLE:
                 gameObject.SetActive(false);
                 Combat.instance.gameObject.SetActive(true);
-                Combat.instance.StartCombat();
+                Combat.instance.StartCombat(1);
                 break;
         }
     }

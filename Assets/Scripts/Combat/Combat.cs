@@ -24,15 +24,22 @@ public class Combat : MonoBehaviour
     public int collectedCoins { get; set; }
     public TextMeshProUGUI moneyText, unitText;
 
+    // Enemy balance
+    [Header("Combat balance")]
+    public int normalEnemiesBase, normalEnemiesPerLevel;
+    public int hardEnemiesBase, hardEnemiesPerLevel;
+    public float baseAccuracyPlayer, baseAccuracyEnemy;
+
     // Power ups
-    public float accuracyPerStage, evasionPerStage, attackSpeedPerStage;
+    [Header("Powerups")]
+    public float accuracyPerStage, evasionPerStage, attackSpeedPerStage, holyInterventionEnemyRatio;
     public int accuracyStage { get; set; }
     public int evasionStage { get; set; }
     public int attackSpeedStage { get; set; }
     public bool divineBlessing { get; set; }
     public bool divineJudgement { get; set; }
     public bool holyIntervention { get; set; }
-    
+
 
     public Combat()
     {
@@ -43,6 +50,8 @@ public class Combat : MonoBehaviour
 
     private void Awake()
     {
+        divineBlessing = true;
+        divineJudgement = true;
         numberOfPlayerUnits = startingPlayerUnits;
         for (int i = 0; i < numberOfPlayerUnits; i++)
         {
@@ -62,12 +71,26 @@ public class Combat : MonoBehaviour
 
     }
 
-    public void StartCombat()
+    public void StartCombat(int n)
     {
-        for (int i = 0; i < numberOfEnemyUnits; i++)
+        numberOfEnemyUnits = n;
+        if (holyIntervention && Map.instance.currentNode.nodeType != NodeType.BOSS_BATTLE)
         {
-            CreateEnemyUnit();
+            numberOfEnemyUnits = Mathf.RoundToInt(n * holyInterventionEnemyRatio);
         }
+
+        if (Map.instance.currentNode.nodeType == NodeType.BOSS_BATTLE)
+        {
+            CreateBossUnit();
+        }
+        else
+        {
+            for (int i = 0; i < numberOfEnemyUnits; i++)
+            {
+                CreateEnemyUnit();
+            }
+        }
+
         combatActive = true;
     }
 
@@ -86,6 +109,15 @@ public class Combat : MonoBehaviour
         int countDirection = ((enemyUnits.Count + 1) / 2) * (enemyUnits.Count % 2 == 0 ? 1 : -1);
         Unit unit = Instantiate(unitPrefab, enemySpawn.transform.position + Vector3.up * Random.Range(-0.4f, 0.4f) + Vector3.right * unitHorizontalOffset * countDirection, Quaternion.identity).GetComponent<Unit>();
         unit.Init(true);
+        unit.transform.parent = unitParent.transform;
+        enemyUnits.Add(unit);
+    }
+
+    private void CreateBossUnit()
+    {
+        int countDirection = ((enemyUnits.Count + 1) / 2) * (enemyUnits.Count % 2 == 0 ? 1 : -1);
+        Unit unit = Instantiate(unitPrefab, enemySpawn.transform.position + Vector3.up * Random.Range(-0.4f, 0.4f) + Vector3.right * unitHorizontalOffset * countDirection, Quaternion.identity).GetComponent<Unit>();
+        unit.InitBoss();
         unit.transform.parent = unitParent.transform;
         enemyUnits.Add(unit);
     }

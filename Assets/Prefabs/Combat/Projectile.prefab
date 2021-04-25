@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8860896514405851423}
   - component: {fileID: -4386292254773104032}
-  - component: {fileID: 5806692736192300018}
+  - component: {fileID: 319309880248800696}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -81,8 +81,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!61 &5806692736192300018
-BoxCollider2D:
+--- !u!58 &319309880248800696
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,15 +95,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5280784, y: 1.8312747}
-  m_EdgeRadius: 0
+  m_Radius: 0.43

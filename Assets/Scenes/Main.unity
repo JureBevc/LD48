@@ -2317,6 +2317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainTheme: {fileID: 8300000, guid: 31a5b711b5f4af448b567d80b0ec4726, type: 3}
   click: {fileID: 8300000, guid: e5a96f1d4e3652840a01a173c7506ff8, type: 3}
+  click2: {fileID: 8300000, guid: ddfc633ce85269041ac2f000b392e66a, type: 3}
   hit: {fileID: 8300000, guid: 924ce76ed4c06dc4da81a4e706d3706d, type: 3}
   attack: {fileID: 8300000, guid: 61025e651c2dd904aa32d9059022f764, type: 3}
 --- !u!4 &953682502
@@ -3475,9 +3476,16 @@ MonoBehaviour:
   startingPlayerUnits: 16
   moneyText: {fileID: 982179466}
   unitText: {fileID: 745563384}
+  normalEnemiesBase: 3
+  normalEnemiesPerLevel: 2
+  hardEnemiesBase: 5
+  hardEnemiesPerLevel: 3
+  baseAccuracyPlayer: 0.1
+  baseAccuracyEnemy: 0.2
   accuracyPerStage: 0.1
-  evasionPerStage: 0.1
-  attackSpeedPerStage: 0.3
+  evasionPerStage: 0.05
+  attackSpeedPerStage: 1
+  holyInterventionEnemyRatio: 0.5
 --- !u!1 &1423976253
 GameObject:
   m_ObjectHideFlags: 0

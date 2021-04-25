@@ -47,16 +47,22 @@ MonoBehaviour:
     type: 3}
   projectilePoolSize: 3
   attackTime: 2
-  attackTimeVariation: 1
+  enemyAttackTime: 2
+  bossAttackTime: 1
+  attackTimeVariation: 0.5
   playerAnimation: {fileID: 7248638961022347395, guid: dbba87ba771b69a4aae0bdd732756ad9,
     type: 3}
   demon1Animation: {fileID: 7248638961022347395, guid: ed2571404ba704a46810a0e79039ede7,
     type: 3}
   demon2Animation: {fileID: 7248638961022347395, guid: c64a3944fa4b9d344b0a0c28e18efc21,
     type: 3}
+  bossAnimation: {fileID: 7248638961022347395, guid: 8c31f02534fda3243b5f5396bcaae5a9,
+    type: 3}
   playerProjectile: {fileID: 5967668959561787413, guid: 3fa42d473f7368d428186e80b325114f,
     type: 3}
-  demon1Projectile: {fileID: 5967668959561787413, guid: 3fa42d473f7368d428186e80b325114f,
+  demon1Projectile: {fileID: 5967668959561787413, guid: e1336aaa04bfce841a22ce75f8f387db,
     type: 3}
   demon2Projectile: {fileID: 3680780948692769583, guid: 10f7ad6de80e97d4ca8f586d302acc39,
+    type: 3}
+  bossProjectile: {fileID: 3680780948692769583, guid: 10f7ad6de80e97d4ca8f586d302acc39,
     type: 3}

@@ -6,9 +6,10 @@ public class Level : MonoBehaviour
 {
 
     private List<Node> nodes = new List<Node>();
-
+    public int levelNumber { get; set; }
     public void init(int level_number, LevelData level_data, List<Node> previous_level_nodes)
     {
+        levelNumber = level_number;
         for (int i = 0; i < level_data.nodes.Length; i++)
         {
             NodeData node_data = level_data.nodes[i];
@@ -19,7 +20,7 @@ public class Level : MonoBehaviour
             int node_count = level_data.nodes.Length;
             node.init(this, i - node_count / 2.0f + .5f, previous_level_nodes);
         }
-        this.transform.position = new Vector3(0, 5f-level_number, 0);
+        this.transform.position = new Vector3(0, 5f - level_number, 0);
     }
 
     public void update(float delta_time)

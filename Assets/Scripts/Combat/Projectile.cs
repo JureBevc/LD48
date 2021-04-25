@@ -29,7 +29,8 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void Init(GameObject projectilePrefab){
+    public void Init(GameObject projectilePrefab)
+    {
         spriteRenderer = Instantiate(projectilePrefab, transform).GetComponentInChildren<SpriteRenderer>();
         ShowSprite(false);
     }
@@ -88,6 +89,7 @@ public class Projectile : MonoBehaviour
 
     private void ShowSprite(bool value)
     {
+        spriteRenderer.color = new Color(255, 255, 255);
         spriteRenderer.enabled = value;
     }
 
@@ -99,10 +101,17 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!fromUnit.isEnemy)
-            return;
-        isUsed = false;
-        ShowSprite(false);
+        if (fromUnit.isEnemy && Combat.instance.divineJudgement)
+        {
+            AudioPlayer.instance.PlayClick2();
+            isUsed = false;
+            ShowSprite(false);
+        }
+        if (!fromUnit.isEnemy && Combat.instance.divineBlessing)
+        {
+            AudioPlayer.instance.PlayClick2();
+            spriteRenderer.color = new Color(255, 120, 0);
+        }
     }
 
     public void ResetProjectile()
