@@ -1942,6 +1942,7 @@ GameObject:
   - component: {fileID: 866467038}
   - component: {fileID: 866467040}
   - component: {fileID: 866467039}
+  - component: {fileID: 866467041}
   m_Layer: 5
   m_Name: MoneyImage
   m_TagString: Untagged
@@ -1986,7 +1987,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -6150535243087010103, guid: 7c9354dc4f3486748b4ba1b690f7fdf7,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2004,6 +2006,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866467037}
   m_CullTransparentMesh: 0
+--- !u!95 &866467041
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866467037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b9fe743877f7fcb4594e2f71887f57ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &866918785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,7 +2317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainTheme: {fileID: 8300000, guid: 31a5b711b5f4af448b567d80b0ec4726, type: 3}
   click: {fileID: 8300000, guid: e5a96f1d4e3652840a01a173c7506ff8, type: 3}
-  hit: {fileID: 8300000, guid: ddfc633ce85269041ac2f000b392e66a, type: 3}
+  hit: {fileID: 8300000, guid: 924ce76ed4c06dc4da81a4e706d3706d, type: 3}
   attack: {fileID: 8300000, guid: 61025e651c2dd904aa32d9059022f764, type: 3}
 --- !u!4 &953682502
 Transform:
@@ -3833,8 +3854,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -706, y: 259}
-  m_SizeDelta: {x: 180, y: 240}
+  m_AnchoredPosition: {x: -703.8, y: 266.1}
+  m_SizeDelta: {x: 156.45926, y: 208.61237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498248427
 MonoBehaviour:

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0dce6b784d9dff4c82368b6c7f2f277, type: 3}
-  m_Name: BossNodeData
+  m_Name: FinalBossNodeData
   m_EditorClassIdentifier: 
-  node_prefab: {fileID: 8320155192695707959, guid: 5693cb58a554cc04a9e22a9a59c76e8f,
+  node_prefab: {fileID: 8320155192695707959, guid: ce657cb924afedf4ab7e2f1b51ba5fb7,
     type: 3}
