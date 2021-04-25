@@ -7,6 +7,8 @@ public class Camp : MonoBehaviour
     public static Camp instance;
 
     public GameObject campUI;
+    public List<PowerData> powers;
+    public RandomPowerButton[] randomPowerButtons;
 
     private List<GameObject> units = new List<GameObject>();
     public Camp()
@@ -17,7 +19,7 @@ public class Camp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ShowCamp();
+
     }
 
     // Update is called once per frame
@@ -36,6 +38,12 @@ public class Camp : MonoBehaviour
             obj.transform.parent = transform;
             units.Add(obj);
         }
+
+        foreach (RandomPowerButton r in randomPowerButtons)
+        {
+            r.SetInfoForPower(powers[Random.Range(0, powers.Count)]);
+        }
+
         gameObject.SetActive(true);
         campUI.SetActive(true);
     }
@@ -49,5 +57,46 @@ public class Camp : MonoBehaviour
         units = new List<GameObject>();
         gameObject.SetActive(false);
         campUI.SetActive(false);
+    }
+
+    public void ActivatePower(PowerData powerData)
+    {
+        if (powerData.oneUse)
+        {
+            powers.Remove(powerData);
+        }
+        switch (powerData.powerType)
+        {
+            case PowerType.ACCURACY:
+                Combat.instance.accuracyStage += 1;
+                break;
+            case PowerType.ATTACK_SPEED:
+                Combat.instance.attackSpeedStage += 1;
+                break;
+            case PowerType.BUY_UNIT:
+                Combat.instance.CreatePlayerUnit();
+                break;
+            case PowerType.BUY_UNIT_DISCOUNT:
+                for (int i = 0; i < 3; i++)
+                {
+                    Combat.instance.CreatePlayerUnit();
+                }
+                break;
+            case PowerType.DIVINE_BLESSING:
+                Combat.instance.divineBlessing = true;
+                break;
+            case PowerType.DIVINE_JUDGEMENT:
+                Combat.instance.divineJudgement = true;
+                break;
+            case PowerType.EVASION:
+                Combat.instance.evasionStage += 1;
+                break;
+            case PowerType.HOLY_INTERVENTION:
+                Combat.instance.holyIntervention = true;
+                break;
+            case PowerType.SELL_UNITS:
+                Combat.instance.collectedCoins += powerData.moneyCost;
+                break;
+        }
     }
 }

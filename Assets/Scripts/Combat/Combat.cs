@@ -22,11 +22,23 @@ public class Combat : MonoBehaviour
     public bool combatActive { get; set; }
 
     public int collectedCoins { get; set; }
-    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI moneyText, unitText;
+
+    // Power ups
+    public float accuracyPerStage, evasionPerStage, attackSpeedPerStage;
+    public int accuracyStage { get; set; }
+    public int evasionStage { get; set; }
+    public int attackSpeedStage { get; set; }
+    public bool divineBlessing { get; set; }
+    public bool divineJudgement { get; set; }
+    public bool holyIntervention { get; set; }
+    
 
     public Combat()
     {
         instance = this;
+
+        collectedCoins = 100;
     }
 
     private void Awake()
@@ -59,13 +71,14 @@ public class Combat : MonoBehaviour
         combatActive = true;
     }
 
-    private void CreatePlayerUnit()
+    public void CreatePlayerUnit()
     {
         int countDirection = ((playerUnits.Count + 1) / 2) * (playerUnits.Count % 2 == 0 ? 1 : -1);
         Unit unit = Instantiate(unitPrefab, playerSpawn.transform.position + Vector3.up * Random.Range(-0.4f, 0.4f) + Vector3.right * unitHorizontalOffset * countDirection, Quaternion.identity).GetComponent<Unit>();
         unit.isEnemy = false;
         unit.transform.parent = unitParent.transform;
         playerUnits.Add(unit);
+        UpdateUnitText();
     }
 
     private void CreateEnemyUnit()
@@ -92,7 +105,7 @@ public class Combat : MonoBehaviour
             return;
         enemyUnits[Random.Range(0, enemyUnits.Count)].Kill();
         collectedCoins += 1;
-        moneyText.text = "" + collectedCoins;
+        UpdateMoneyText();
         CheckForCombatOver();
     }
 
@@ -101,7 +114,16 @@ public class Combat : MonoBehaviour
         if (playerUnits.Count <= 0)
             return;
         playerUnits[Random.Range(0, playerUnits.Count)].Kill();
+        UpdateUnitText();
         CheckForCombatOver();
+    }
+
+    public void KillUnits(int n)
+    {
+        if (playerUnits.Count <= 0)
+            return;
+        playerUnits[Random.Range(0, playerUnits.Count)].Kill();
+        UpdateUnitText();
     }
 
     public void CheckForCombatOver()
@@ -117,7 +139,7 @@ public class Combat : MonoBehaviour
         if (enemyUnits.Count == 0)
         {
             // Win battle
-            Debug.Log("BATTLE WON");
+            //Debug.Log("BATTLE WON");
             combatActive = false;
 
             foreach (Unit unit in playerUnits)
@@ -131,4 +153,13 @@ public class Combat : MonoBehaviour
         }
     }
 
+    public void UpdateUnitText()
+    {
+        unitText.text = "" + playerUnits.Count;
+    }
+
+    public void UpdateMoneyText()
+    {
+        moneyText.text = "" + collectedCoins;
+    }
 }

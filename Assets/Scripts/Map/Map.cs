@@ -99,7 +99,7 @@ public class Map : MonoBehaviour
 
     public void MoveToNode(Node node)
     {
-        Debug.Log("Moving to next node");
+        //Debug.Log("Moving to next node");
         currentNode = node;
         currentNodeIndicator.transform.position = node.transform.position;
     }
