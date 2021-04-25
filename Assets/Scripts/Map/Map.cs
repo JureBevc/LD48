@@ -66,16 +66,18 @@ public class Map : MonoBehaviour
     public void NodeClick(Node node)
     {
         Level level = node.level;
-        if (node.HasNeighbor(currentNode))
+        if (!node.HasNeighbor(currentNode))
         {
-            MoveToNode(node);
+            return;
         }
+        MoveToNode(node);
         AudioPlayer.instance.PlayClick();
 
         switch (currentNode.nodeType)
         {
             case NodeType.CAMP:
-
+                gameObject.SetActive(false);
+                Camp.instance.ShowCamp();
                 break;
             case NodeType.NORMAL_BATTLE:
                 gameObject.SetActive(false);

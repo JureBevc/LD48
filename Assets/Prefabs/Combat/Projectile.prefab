@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 2
-  yOffset: 1
+  yOffset: 2
   minHeight: 3
   maxHeight: 6
   curve:

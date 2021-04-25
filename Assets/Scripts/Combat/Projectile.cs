@@ -95,6 +95,8 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (!fromUnit.isEnemy)
+            return;
         isUsed = false;
         ShowSprite(false);
     }

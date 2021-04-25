@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Combat : MonoBehaviour
@@ -11,6 +12,8 @@ public class Combat : MonoBehaviour
     public Transform playerSpawn, enemySpawn;
     public float unitHorizontalOffset = 1f;
 
+    public int startingPlayerUnits;
+
     private int numberOfPlayerUnits = 12, numberOfEnemyUnits = 3;
 
     private List<Unit> playerUnits = new List<Unit>();
@@ -18,11 +21,23 @@ public class Combat : MonoBehaviour
 
     public bool combatActive { get; set; }
 
+    public int collectedCoins { get; set; }
+    public TextMeshProUGUI moneyText;
+
     public Combat()
     {
         instance = this;
     }
 
+    private void Awake()
+    {
+        numberOfPlayerUnits = startingPlayerUnits;
+        for (int i = 0; i < numberOfPlayerUnits; i++)
+        {
+            CreatePlayerUnit();
+        }
+        gameObject.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -37,13 +52,6 @@ public class Combat : MonoBehaviour
 
     public void StartCombat()
     {
-        if (playerUnits.Count == 0)
-        {
-            for (int i = 0; i < numberOfPlayerUnits; i++)
-            {
-                CreatePlayerUnit();
-            }
-        }
         for (int i = 0; i < numberOfEnemyUnits; i++)
         {
             CreateEnemyUnit();
@@ -83,6 +91,8 @@ public class Combat : MonoBehaviour
         if (enemyUnits.Count <= 0)
             return;
         enemyUnits[Random.Range(0, enemyUnits.Count)].Kill();
+        collectedCoins += 1;
+        moneyText.text = "" + collectedCoins;
         CheckForCombatOver();
     }
 

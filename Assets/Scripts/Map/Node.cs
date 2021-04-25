@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     public NodeType nodeType;
 
     private Dictionary<Node, Connection> connections = new Dictionary<Node, Connection>();
-    public Level level {get; set;}
+    public Level level { get; set; }
 
     public void init(Level level, float position, List<Node> neigbors)
     {
@@ -34,7 +34,18 @@ public class Node : MonoBehaviour
     }
     void OnMouseDown()
     {
+        transform.localScale = Vector3.one;
         Map.instance.NodeClick(this);
+    }
+
+    private void OnMouseEnter()
+    {
+        transform.localScale = Vector3.one * 1.5f;
+    }
+
+    private void OnMouseExit()
+    {
+        transform.localScale = Vector3.one;
     }
 
     private void SetConnectionPositions()
@@ -56,7 +67,8 @@ public class Node : MonoBehaviour
 
     }
 
-    public bool HasNeighbor(Node node){
+    public bool HasNeighbor(Node node)
+    {
         return connections.ContainsKey(node);
     }
 }

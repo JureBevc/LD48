@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6948736612599673356, guid: 0fd5928215edb2e47a165bf5c408acec,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.22
+      objectReference: {fileID: 0}
     - target: {fileID: 2212331660952644145, guid: 0fd5928215edb2e47a165bf5c408acec,
         type: 3}
       propertyPath: m_Sprite
@@ -113,5 +118,7 @@ PrefabInstance:
       propertyPath: nodeType
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3157077992098491486, guid: 0fd5928215edb2e47a165bf5c408acec, type: 3}
+    - {fileID: 6848355743336827675, guid: 0fd5928215edb2e47a165bf5c408acec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0fd5928215edb2e47a165bf5c408acec, type: 3}
