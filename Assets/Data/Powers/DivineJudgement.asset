@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 7
   powerTitle: Divine Protection
-  powerDescription: Enables you to click on incoming enemy projectiles and destroy
-    them before they reach your units.
+  powerDescription: Click on incoming enemy projectiles and destroy them before they
+    reach your units.
   moneyCost: 3
   unitCost: 0
   oneUse: 1

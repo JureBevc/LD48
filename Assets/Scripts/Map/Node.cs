@@ -13,19 +13,33 @@ public class Node : MonoBehaviour
     public void init(Level level, float position, List<Node> neigbors)
     {
         this.level = level;
+        this.transform.position = new Vector3(position * 1, 0, 0);
 
-        foreach (Node child in neigbors)
+        List<Node> closest = GetClosest(neigbors);
+        int count = 0;
+        foreach (Node child in closest)
         {
-            if (child != null)
+            if (child != null && Vector3.Distance(child.transform.localPosition, transform.localPosition) < 2f)
             {
+                count += 1;
                 Connection connection = Instantiate(connection_prefab, this.transform);
                 connections.Add(child, connection);
             }
         }
 
-        this.transform.position = new Vector3(position * 1, 0, 0);
 
         this.SetConnectionPositions();
+    }
+
+    public List<Node> GetClosest(List<Node> nodes)
+    {
+        nodes.Sort((n1,n2) => {
+            return Vector3.Distance(n1.transform.localPosition, transform.localPosition).CompareTo(
+                Vector3.Distance(n2.transform.localPosition, transform.localPosition)
+            );
+        });
+
+        return nodes;
     }
 
     public void update(float delta_time)

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 6
   powerTitle: Divine Blessing
-  powerDescription: Enables you to click on your own projectiles and empower them
-    before they reach the enemy, giving them increased accuracy.
+  powerDescription: Click on your own projectiles and empower them before they reach
+    the enemy, giving them increased accuracy.
   moneyCost: 3
   unitCost: 0
   oneUse: 1

@@ -66,6 +66,7 @@ public class Projectile : MonoBehaviour
 
         currentLifeTime = 0;
         isUsed = true;
+        buffed = false;
         transform.position = origin + Vector3.up * yOffset;
         height = Random.Range(minHeight, maxHeight);
         previousPosition = transform.position;

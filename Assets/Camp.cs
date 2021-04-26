@@ -95,7 +95,9 @@ public class Camp : MonoBehaviour
                 Combat.instance.holyIntervention = true;
                 break;
             case PowerType.SELL_UNITS:
+                Combat.instance.KillUnits(powerData.unitCost);
                 Combat.instance.collectedCoins += powerData.moneyCost;
+                Combat.instance.UpdateMoneyText();
                 break;
         }
     }

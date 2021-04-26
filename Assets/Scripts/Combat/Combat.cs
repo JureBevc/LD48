@@ -23,6 +23,7 @@ public class Combat : MonoBehaviour
 
     public bool combatActive { get; set; }
 
+    public int startingCoins;
     public int collectedCoins { get; set; }
     public TextMeshProUGUI moneyText, unitText;
 
@@ -46,11 +47,12 @@ public class Combat : MonoBehaviour
     public Combat()
     {
         instance = this;
-        collectedCoins = 100;
     }
 
     private void Awake()
     {
+        collectedCoins = startingCoins;
+        UpdateMoneyText();
         numberOfPlayerUnits = startingPlayerUnits;
         for (int i = 0; i < numberOfPlayerUnits; i++)
         {
@@ -58,10 +60,9 @@ public class Combat : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
-
     }
 
     // Update is called once per frame

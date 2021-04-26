@@ -16,9 +16,12 @@ public class BuyUnitButton : MonoBehaviour
     }
     public void ButonClick()
     {
-        AudioPlayer.instance.PlayClick();
-        Combat.instance.collectedCoins -= powerData.moneyCost;
-        Combat.instance.UpdateMoneyText();
-        Camp.instance.ActivatePower(powerData);
+        if (powerData.moneyCost <= Combat.instance.collectedCoins)
+        {
+            AudioPlayer.instance.PlayClick();
+            Combat.instance.collectedCoins -= powerData.moneyCost;
+            Combat.instance.UpdateMoneyText();
+            Camp.instance.ActivatePower(powerData);
+        }
     }
 }

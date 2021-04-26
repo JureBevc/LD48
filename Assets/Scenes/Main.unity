@@ -4479,15 +4479,16 @@ MonoBehaviour:
   gameWon: {fileID: 1412529}
   unitHorizontalOffset: 0.5
   startingPlayerUnits: 16
+  startingCoins: 3
   moneyText: {fileID: 982179466}
   unitText: {fileID: 745563384}
   normalEnemiesBase: 3
   normalEnemiesPerLevel: 2
   hardEnemiesBase: 5
-  hardEnemiesPerLevel: 3
+  hardEnemiesPerLevel: 2
   baseAccuracyPlayer: 0.1
   baseAccuracyEnemy: 0.1
-  bossAccuracy: 0
+  bossAccuracy: 0.5
   accuracyPerStage: 0.1
   evasionPerStage: 0.05
   attackSpeedPerStage: 1
@@ -6488,7 +6489,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4287203721
-  m_fontColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
