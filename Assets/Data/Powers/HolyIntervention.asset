@@ -15,6 +15,6 @@ MonoBehaviour:
   powerType: 8
   powerTitle: Holy Intervention
   powerDescription: Your next battle will be easier.
-  moneyCost: 3
+  moneyCost: 4
   unitCost: 0
   oneUse: 1

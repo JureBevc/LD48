@@ -16,6 +16,6 @@ MonoBehaviour:
   powerTitle: Divine Blessing
   powerDescription: Click on your own projectiles and empower them before they reach
     the enemy, giving them increased accuracy.
-  moneyCost: 3
+  moneyCost: 6
   unitCost: 0
   oneUse: 1

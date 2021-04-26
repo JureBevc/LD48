@@ -15,5 +15,6 @@ MonoBehaviour:
   powerType: 0
   powerTitle: +Accuracy
   powerDescription: Your units have a greater chance to hit the enemy.
-  moneyCost: 3
+  moneyCost: 4
   unitCost: 0
+  oneUse: 0

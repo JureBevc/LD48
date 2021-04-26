@@ -16,6 +16,6 @@ MonoBehaviour:
   powerTitle: Divine Protection
   powerDescription: Click on incoming enemy projectiles and destroy them before they
     reach your units.
-  moneyCost: 3
+  moneyCost: 6
   unitCost: 0
   oneUse: 1

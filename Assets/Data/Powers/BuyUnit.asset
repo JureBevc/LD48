@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BuyUnit
   m_EditorClassIdentifier: 
   powerType: 2
-  powerTitle: +1 Units
-  powerDescription: Hire more units at a discount.
+  powerTitle: +1 Unit
+  powerDescription: Hire a unit.
   moneyCost: 3
   unitCost: 0
   oneUse: 0

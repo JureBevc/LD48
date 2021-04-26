@@ -15,5 +15,6 @@ MonoBehaviour:
   powerType: 4
   powerTitle: +Evasion
   powerDescription: Your units have a greater chance of evading incoming attacks.
-  moneyCost: 3
+  moneyCost: 4
   unitCost: 0
+  oneUse: 0

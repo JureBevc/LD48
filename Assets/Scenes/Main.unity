@@ -386,7 +386,7 @@ MonoBehaviour:
   map_data: {fileID: 11400000, guid: 52f808d0a61614748bb9e758ac32829c, type: 2}
   currentNodeIndicator: {fileID: 379887010}
   background: {fileID: 563010860}
-  maxScroll: 8
+  maxScroll: 7.7
   minScroll: 1.2
 --- !u!4 &107644567
 Transform:
@@ -4477,18 +4477,18 @@ MonoBehaviour:
   enemySpawn: {fileID: 1423976254}
   gameOver: {fileID: 1440836224}
   gameWon: {fileID: 1412529}
-  unitHorizontalOffset: 0.5
-  startingPlayerUnits: 16
+  unitHorizontalOffset: 0.4
+  startingPlayerUnits: 13
   startingCoins: 3
   moneyText: {fileID: 982179466}
   unitText: {fileID: 745563384}
   normalEnemiesBase: 3
-  normalEnemiesPerLevel: 2
-  hardEnemiesBase: 5
+  normalEnemiesPerLevel: 1
+  hardEnemiesBase: 3
   hardEnemiesPerLevel: 2
-  baseAccuracyPlayer: 0.1
+  baseAccuracyPlayer: 0.2
   baseAccuracyEnemy: 0.1
-  bossAccuracy: 0.5
+  bossAccuracy: 0.35
   accuracyPerStage: 0.1
   evasionPerStage: 0.05
   attackSpeedPerStage: 1

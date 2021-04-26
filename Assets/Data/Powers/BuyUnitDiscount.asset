@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 3
   powerTitle: More units
-  powerDescription: Hire more units at a discount.
-  moneyCost: 3
+  powerDescription: Hire 3 units at a discount.
+  moneyCost: 6
   unitCost: 0
   oneUse: 0
